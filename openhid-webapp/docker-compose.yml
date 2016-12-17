@@ -1,0 +1,11 @@
+version: '2'
+services:
+  openhid.com:
+    image: openhid.com:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000

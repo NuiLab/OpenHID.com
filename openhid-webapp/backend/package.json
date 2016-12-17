@@ -1,0 +1,31 @@
+{
+  "name": "openhid-backend",
+  "version": "0.1.0",
+  "description": "The backend of the OpenHID research lab website. ",
+  "author": "Alain Galvan <hi@alain.xyz>",
+  "license": "MIT",
+  "main": "server.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/openhid/openhid.com.git"
+  },
+  "scripts": {
+    "develop": "set DEBUG=express:* & set NODE_ENV=development & ts-node server.ts --no-cache",
+    "production": "set DEBUG=false & set NODE_ENV=production & ts-node server.ts -d -f &"
+  },
+  "keywords": [],
+  "private": true,
+  "dependencies": {
+    "@types/compression": "^0.0.33",
+    "@types/body-parser": "0.0.33",
+    "@types/express": "^4.0.34",
+    "@types/mongodb": "^2.1.36",
+    "@types/node": "^6.0.52",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.16",
+    "typescript": "^2.1.4",
+    "ts-node": "^1.7.2"
+  }
+}

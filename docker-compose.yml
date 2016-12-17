@@ -1,0 +1,22 @@
+version: '2'
+services:
+  nginx:
+    image: nginx
+    restart: always
+  mongo:
+    image: mongo
+    restart: always
+  node:
+    image: node
+    restart: always
+  openhid:
+    image: openhid
+    restart: always
+    depends_on:
+      - node
+  chat:
+    image: rocketchat
+    restart: always
+    depends_on:
+      - mongo
+      - node
