@@ -1,6 +1,6 @@
-# OpenHID.com
+# OpenHID Web Stack
 
-The OpenHID stack that powers our website and subservices.
+The OpenHID stack that powers our website and services.
 
 ## Apps
 
