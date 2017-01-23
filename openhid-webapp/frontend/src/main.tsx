@@ -1,5 +1,8 @@
-import React from 'react';
-import {render} from 'react-dom';
-import AppRoutes from './routes';
+import * as React from 'react';
+import { BrowserRouter } from 'react-router';
+import { render } from 'react-dom';
+import App from './app';
 
-render(AppRoutes, document.getElementById('app'));
+let app = <BrowserRouter>{App}</BrowserRouter>;
+
+render(app, document.getElementById('app'));
