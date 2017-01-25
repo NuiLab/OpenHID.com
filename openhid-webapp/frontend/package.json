@@ -21,9 +21,9 @@
   "devDependencies": {
     "@types/isomorphic-fetch": "0.0.32",
     "@types/node": "^7.0.3",
-    "@types/react": "^15.0.2",
+    "@types/react": "^15.0.4",
     "@types/react-dom": "^0.14.21",
-    "@types/webpack": "^2.2.3",
+    "@types/webpack": "^2.2.4",
     "@types/webpack-dev-server": "^1.12.6",
     "autoprefixer": "^6.7.0",
     "css-loader": "^0.26.1",

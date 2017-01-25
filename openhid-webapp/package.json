@@ -1,0 +1,17 @@
+{
+  "name": "openhid-webapp",
+  "version": "0.1.0",
+  "description": "The OpenHID research lab website.",
+  "author": "Alain Galvan <hi@alain.xyz>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/openhid/openhid.com.git"
+  },
+  "keywords": [
+    "systemjs",
+    "typescript",
+    "postcss"
+  ],
+  "private": true
+}
