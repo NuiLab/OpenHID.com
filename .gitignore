@@ -24,7 +24,7 @@ ts-node
 # Personal Scripts
 *.bat
 *.ssh
-yarn.lock
+*.pub
 
 # Editors
 .vscode

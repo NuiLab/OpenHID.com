@@ -1,18 +1,22 @@
 import * as React from 'react';
-import { Match, Miss, Redirect} from 'react-router';
+import { Route, Switch } from 'react-router';
 import { Nav } from './components';
-import { Home, Publications, About, NotFound } from './views';
+import { Home, Publications, About, User, Publication, NotFound } from './views';
 
 import './css';
 
 const App = (
-    <div>
-      <Nav />
-      <Match exactly pattern="/" component={Home} />
-      <Match pattern="/publications" component={Publications} />
-      <Match pattern="/about" component={About}/>
-      <Miss component={NotFound} />
-    </div>
+  <div>
+    <Nav />
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/publications" component={Publications} />
+      <Route exact path="/about" component={About} />
+      <Route exact path="/:user" component={User} />
+      <Route exact path="/:user/:permalink" component={Publication} />
+      <Route component={NotFound} />
+    </Switch>
+  </div>
 );
 
 export default App;

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
-import { ServerRouter, createServerRenderContext } from 'react-router';
+import { StaticRouter } from 'react-router';
 
 import App from '../../frontend/src/app';
 import { NotFound } from '../../frontend/src/views';
@@ -12,35 +12,29 @@ import { database } from './db';
  * Prerenders a given page with React.
  */
 export function renderPage(req: Request, res: Response) {
-  // first create a context for <ServerRouter>, it's where we keep the
-  // results of rendering for the second pass if necessary
-  const context = createServerRenderContext();
+
+  // This context object contains the results of the render
+  const context: any = {};
 
   let markup = renderToString(
-    <ServerRouter location={req.url} context={context}>
+     <StaticRouter location={req.url} context={context}>
       {App}
-    </ServerRouter>
+    </StaticRouter>
   );
 
-  // get the result
-  const result = context.getResult();
-
-  // the result will tell you if it redirected, if so, we ignore
-  // the markup and send a proper redirect.
-  if (result.redirect) {
-    res.writeHead(301, { Location: result.redirect.pathname });
+  // context.url will contain the URL to redirect to if a <Redirect> was used
+  if (context.url) {
+    res.writeHead(302, {
+      Location: context.url
+    });
     res.end();
   } else {
-    // the result will tell you if there were any misses, if so
-    // we can send a 404 and then do a second render pass with
-    // the context to clue the <Miss> components into rendering
-    // this time (on the client they know from componentDidMount)
-    if (result.missed) {
+    if (context.missed) {
       res.writeHead(404);
       markup = renderToString(
-        <ServerRouter location={req.url} context={context}>
+        <StaticRouter location={req.url} context={context}>
           {App}
-        </ServerRouter>
+        </StaticRouter>
       );
     }
     res.write(page(markup));
