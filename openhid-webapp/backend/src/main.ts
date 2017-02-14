@@ -20,8 +20,8 @@ app.use('/assets', express.static(path.join(root, 'assets')));
 app.get('*', renderPage);
 
 // Server Start
-app.listen(3000, () => {
-  console.log('⚪ OpenHID.com Running @ port 3000');
+app.listen(8000, () => {
+  console.log('⚪ OpenHID.com Running @ port 8000');
 });
 
 // Expose Modules
