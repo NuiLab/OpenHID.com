@@ -8,6 +8,11 @@
     "type": "git",
     "url": "https://gitlab.com/openhid/openhid.com.git"
   },
+  "scripts": {
+    "start": "npm run setup-backend && npm run start-backend",
+    "setup-backend": "cd backend & npm i",
+    "start-backend": "cd backend & npm start"
+  },
   "keywords": [
     "systemjs",
     "typescript",

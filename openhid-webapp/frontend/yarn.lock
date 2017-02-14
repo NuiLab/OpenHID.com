@@ -8,7 +8,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/isomorphic-fetch@0.0.32":
+"@types/isomorphic-fetch@^0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.32.tgz#d76f29302aabb38d5caa39b54a96984ffb6bdba3"
 
@@ -16,11 +16,7 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-0.0.29.tgz#fbcfd330573b912ef59eeee14602bface630754b"
 
-"@types/node@*":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.0.tgz#c081147b109da5f9c57af70571771be97ce9c0ba"
-
-"@types/node@^7.0.5":
+"@types/node@*", "@types/node@^7.0.5":
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.5.tgz#96a0f0a618b7b606f1ec547403c00650210bfbb7"
 
@@ -30,13 +26,9 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*":
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.1.tgz#af128796b3205cc5c8d22640f8a5444187c30ab7"
-
-"@types/react@^15.0.7":
-  version "15.0.7"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.7.tgz#f8e74c68602844fcc43ba6fbd111caf98e98f9ef"
+"@types/react@*", "@types/react@^15.0.9":
+  version "15.0.9"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.9.tgz#b45b6174870890a7f8426cdad6935ba7af4c13f4"
 
 "@types/serve-static@*":
   version "1.7.31"
@@ -67,15 +59,7 @@
     "@types/serve-static" "*"
     "@types/webpack" "*"
 
-"@types/webpack@*":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-2.2.2.tgz#c7c3d3e2e188f5bda2cdbff104fa5bfa7e731b19"
-  dependencies:
-    "@types/node" "*"
-    "@types/tapable" "*"
-    "@types/uglify-js" "*"
-
-"@types/webpack@^2.2.5":
+"@types/webpack@*", "@types/webpack@^2.2.5":
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-2.2.5.tgz#fdd98f969ba5da0d548c2a3c05a1975c9107cc05"
   dependencies:
@@ -251,18 +235,7 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-autoprefixer@^6.3.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.6.1.tgz#11a4077abb4b313253ec2f6e1adb91ad84253519"
-  dependencies:
-    browserslist "~1.5.1"
-    caniuse-db "^1.0.30000604"
-    normalize-range "^0.1.2"
-    num2fraction "^1.2.2"
-    postcss "^5.2.8"
-    postcss-value-parser "^3.2.3"
-
-autoprefixer@^6.7.2:
+autoprefixer@^6.3.1, autoprefixer@^6.7.2:
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.7.2.tgz#172ab07b998ae9b957530928a59a40be54a45023"
   dependencies:
@@ -409,13 +382,7 @@ browserify-zlib@^0.1.4:
   dependencies:
     pako "~0.2.0"
 
-browserslist@^1.0.1, browserslist@^1.5.2, browserslist@~1.5.1:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-1.5.2.tgz#1c82fde0ee8693e6d15c49b7bff209dc06298c56"
-  dependencies:
-    caniuse-db "^1.0.30000604"
-
-browserslist@^1.7.1:
+browserslist@^1.0.1, browserslist@^1.5.2, browserslist@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-1.7.1.tgz#cc9bd193979a2a4b09fdb3df6003fefe48ccefe1"
   dependencies:
@@ -468,11 +435,7 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.3.0"
     shelljs "^0.7.0"
 
-caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000604:
-  version "1.0.30000613"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000613.tgz#639133b7a5380c1416f9701d23d54d093dd68299"
-
-caniuse-db@^1.0.30000617, caniuse-db@^1.0.30000618:
+caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000617, caniuse-db@^1.0.30000618:
   version "1.0.30000622"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000622.tgz#9d9690b577384990a58e33ebb903a14da735e5fd"
 
@@ -1065,7 +1028,7 @@ faye-websocket@~0.11.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.8.4:
+fbjs@^0.8.1, fbjs@^0.8.4:
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.8.tgz#02f1b6e0ea0d46c24e0b51a2d24df069563a5ad6"
   dependencies:
@@ -2493,7 +2456,7 @@ postcss-zindex@^2.0.1:
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
-postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.2.11, postcss@^5.2.8, postcss@^5.2.9:
+postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.2.11, postcss@^5.2.9:
   version "5.2.11"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.11.tgz#ff29bcd6d2efb98bfe08a022055ec599bbe7b761"
   dependencies:
@@ -2629,13 +2592,20 @@ rc@~1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
 
-react-dom@^16.0.0-alpha.0:
-  version "16.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.0.0-alpha.0.tgz#80ea996b10d0f49cf280eacc9c7b1738c6de29aa"
+react-dom@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
-    fbjs "^0.8.4"
+    fbjs "^0.8.1"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
+
+react-router-dom@4.0.0-beta.5:
+  version "4.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.0.0-beta.5.tgz#cb104b789d3a7af159c06ce76e7253978447f9aa"
+  dependencies:
+    history "^4.5.1"
+    react-router "^4.0.0-beta.5"
 
 react-router@^4.0.0-beta.5:
   version "4.0.0-beta.5"
@@ -2647,9 +2617,9 @@ react-router@^4.0.0-beta.5:
     path-to-regexp "^1.5.3"
     warning "^3.0.0"
 
-react@^16.0.0-alpha.0:
-  version "16.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0-alpha.0.tgz#2b9dc3d508f10aa4398ee1e6c40903982b5891f2"
+react@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
     fbjs "^0.8.4"
     loose-envify "^1.1.0"

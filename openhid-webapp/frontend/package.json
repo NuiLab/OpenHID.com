@@ -1,7 +1,7 @@
 {
   "name": "openhid-frontend",
   "version": "0.1.0",
-  "description": "The frontend for the OpenHID research lab website.",
+  "description": "⚪ The frontend for the OpenHID research lab website.",
   "author": "Alain Galvan <hi@alain.xyz>",
   "license": "MIT",
   "repository": {
@@ -19,9 +19,9 @@
   ],
   "private": true,
   "devDependencies": {
-    "@types/isomorphic-fetch": "0.0.32",
+    "@types/isomorphic-fetch": "^0.0.32",
     "@types/node": "^7.0.5",
-    "@types/react": "^15.0.7",
+    "@types/react": "^15.0.9",
     "@types/react-dom": "^0.14.23",
     "@types/webpack": "^2.2.5",
     "@types/webpack-dev-server": "^1.12.6",
@@ -37,8 +37,9 @@
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
-    "react": "^16.0.0-alpha.0",
-    "react-dom": "^16.0.0-alpha.0",
-    "react-router": "^4.0.0-beta.5"
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^4.0.0-beta.5",
+    "react-router-dom": "4.0.0-beta.5"
   }
 }

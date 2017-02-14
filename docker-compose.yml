@@ -1,22 +1,33 @@
 version: '2'
 services:
-  nginx:
-    image: nginx
-    restart: always
+nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: unless-stopped
   mongo:
     image: mongo
-    restart: always
+    restart: unless-stopped
   node:
     image: node
-    restart: always
+    restart: unless-stopped
   openhid:
-    image: openhid
-    restart: always
+    build: ./openhid-webapp
     depends_on:
       - node
-  chat:
+      - mongo
+    environment:
+      VIRTUAL_HOST: "openhid.com"
+    restart: unless-stopped
+  rocketchat:
     image: rocketchat
-    restart: always
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: "chat.openhid.com"
     depends_on:
       - mongo
       - node

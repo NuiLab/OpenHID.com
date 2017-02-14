@@ -1,7 +1,7 @@
 {
   "name": "openhid-backend",
   "version": "0.1.0",
-  "description": "The backend of the OpenHID research lab website.",
+  "description": "⚪ The backend of the OpenHID research lab website.",
   "author": "Alain Galvan <hi@alain.xyz>",
   "license": "MIT",
   "main": "server.ts",

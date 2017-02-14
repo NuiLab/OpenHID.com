@@ -21,7 +21,7 @@ app.get('*', renderPage);
 
 // Server Start
 app.listen(3000, () => {
-  console.log('OpenHID.com Running @ port 3000');
+  console.log('⚪ OpenHID.com Running @ port 3000');
 });
 
 // Expose Modules
