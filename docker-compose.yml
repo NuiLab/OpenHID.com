@@ -3,6 +3,9 @@ services:
   nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
+    links:
+        - openhid:openhid
+        - rocketchat:rocketchat
     ports:
       - "80:80"
       - "443:443"
@@ -16,6 +19,8 @@ services:
     build: ./openhid-webapp
     volumes:
       - .:/home/openhid/db
+    ports: 
+      - "8000"
     depends_on:
       - mongo
     environment:

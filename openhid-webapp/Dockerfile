@@ -1,4 +1,4 @@
-FROM node
+FROM node:latest
 MAINTAINER Alain Galvan "hi@alain.xyz"
 RUN mkdir /app
 WORKDIR /app
