@@ -22,7 +22,7 @@ services:
       VIRTUAL_HOST: "nuilabs.org"
     restart: unless-stopped
   rocketchat:
-    image: rocketchat
+    image: rocketchat/rocket.chat
     restart: unless-stopped
     environment:
       VIRTUAL_HOST: "chat.nuilabs.org"
