@@ -5,7 +5,7 @@ import { Home, Publications, About, User, Publication, NotFound } from './views'
 
 const App = (
   <div>
-    <Nav />
+    <Navbar />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/publications" component={Publications} />

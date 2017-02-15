@@ -4,4 +4,5 @@ RUN mkdir /app
 WORKDIR /app
 ADD . /app
 EXPOSE 8000
-CMD npm start
+RUN npm install
+RUN npm start
