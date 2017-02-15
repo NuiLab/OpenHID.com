@@ -12,11 +12,10 @@ services:
   mongo:
     image: mongo
     restart: unless-stopped
-  node:
-    image: node
-    restart: unless-stopped
   openhid:
     build: ./openhid-webapp
+    volumes:
+      - .:/home/openhid/db
     depends_on:
       - node
       - mongo
@@ -30,4 +29,3 @@ services:
       VIRTUAL_HOST: "chat.nuilabs.org"
     depends_on:
       - mongo
-      - node
