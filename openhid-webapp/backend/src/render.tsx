@@ -2,10 +2,8 @@ import { Request, Response } from 'express';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
-
 import App from '../../frontend/src/app';
 import { NotFound } from '../../frontend/src/views';
-
 import { database } from './db';
 
 /**
@@ -29,20 +27,13 @@ export function renderPage(req: Request, res: Response) {
     });
     res.end();
   } else {
-    if (context.missed) {
-      res.writeHead(404);
-      markup = renderToString(
-        <StaticRouter location={req.url} context={context}>
-          {App}
-        </StaticRouter>
-      );
-    }
-    res.write(page(markup));
+    let state = {};
+    res.write(page(markup, state));
     res.end();
   }
 }
 
-function page(markup: string) {
+function page(markup: string, state: Object) {
   return `<!--
 
         .:+syyssss+:.
@@ -96,6 +87,7 @@ oh- .. ..  . ..-o-. . . . ./ho
   </div>
 
   <!--Load App-->
+  <script>window['__INITIAL_STATE__']=${JSON.stringify(state)}</script>
   <script src="/assets/vendor.min.js"></script>
   <script src="/assets/main.min.js"></script>
 </body>

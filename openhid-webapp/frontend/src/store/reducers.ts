@@ -1,7 +1,7 @@
 import { APIRequest, APIResponse } from './actions';
 import { createReducer } from './utils';
 
-const initialState = {
+const initialState = window['__INITIAL_STATE__'] || {
     users: [],          // Cached User Accounts
     publications: [],   // Cached Publications
     isFetching: false,  // Loading
