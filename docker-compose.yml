@@ -17,7 +17,6 @@ services:
     volumes:
       - .:/home/openhid/db
     depends_on:
-      - node
       - mongo
     environment:
       VIRTUAL_HOST: "nuilabs.org"
