@@ -23,6 +23,7 @@ ts-node
 # Personal Scripts
 *.bat
 *.ssh
+*.ppk
 *.pub
 db
 

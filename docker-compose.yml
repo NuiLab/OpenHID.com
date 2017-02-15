@@ -21,13 +21,13 @@ services:
       - node
       - mongo
     environment:
-      VIRTUAL_HOST: "openhid.com"
+      VIRTUAL_HOST: "nuilabs.org"
     restart: unless-stopped
   rocketchat:
     image: rocketchat
     restart: unless-stopped
     environment:
-      VIRTUAL_HOST: "chat.openhid.com"
+      VIRTUAL_HOST: "chat.nuilabs.org"
     depends_on:
       - mongo
       - node
