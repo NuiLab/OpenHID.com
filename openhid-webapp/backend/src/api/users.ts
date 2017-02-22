@@ -130,7 +130,7 @@ export function register(req: Request, res: Response) {
   let sanitized = sanitizeUser(req.body);
   if (Object.values(sanitized).reduce((prev, cur) => prev || cur, ''))
     return failure(res, {
-      error: 'Failed to lregister...',
+      error: 'Failed to register...',
       ...sanitized
     });
 
@@ -166,7 +166,7 @@ export function register(req: Request, res: Response) {
       salt,
       loginAttempts: 0,
       lastLogin: new Date()
-    });
+    }, { upsert: true });
 
     success(res, {
       message: '🎉 You\'ve successfully registered!',
@@ -174,4 +174,29 @@ export function register(req: Request, res: Response) {
     })
   });
 
+}
+
+/**
+ * Querying for users.
+ */
+export function users(req: Request, res: Response) {
+
+  database.then(async db => {
+    let c = db.collection('users');
+
+    let users = c.find({}, {
+      password: 0,
+      salt: 0,
+      loginAttempts: 0,
+      lastLogin: 0
+    })
+      .skip(0)
+      .limit(10)
+      .toArray();
+
+      success(res, {
+        message: 'Here\'s the list of users!',
+        data: users
+      });
+  })
 }

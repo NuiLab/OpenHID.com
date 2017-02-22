@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression({ level: 9 }));
-app.use((err, req, res, next) => res.status(500).json({ err: 'Bad request!' }));
+app.use((err, req, res, next) => res.status(500).json({ error: '💫 We\'re not sure what happened...' }));
 
 // Route Frontend
 const root = path.join(__dirname, '..', '..', 'frontend');
