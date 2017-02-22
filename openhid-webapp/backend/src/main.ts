@@ -2,8 +2,8 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as compression from 'compression';
-
 import { database } from './db';
+import api from './api';
 import { renderPage } from './render';
 
 const app = express();
@@ -17,6 +17,7 @@ app.use((err, req, res, next) => res.status(500).json({ err: 'Bad request!' }));
 // Route Frontend
 const root = path.join(__dirname, '..', '..', 'frontend');
 app.use('/assets', express.static(path.join(root, 'assets')));
+api(app);
 app.get('*', renderPage);
 
 // Server Start
