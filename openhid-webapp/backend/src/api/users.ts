@@ -104,7 +104,7 @@ export function login(req: Request, res: Response) {
         return failure(res, { error: 'Please try logging after 5 minutes.' });
 
     if (!(await bcrypt.compare(password, salt))) {
-      c.update({ username }, { loginAttempts: loginAttempts < 5 ? '$inc' : 5, lastLogin: new Date() });
+      c.update({ username }, { loginAttempts: loginAttempts < 5 ? '$inc' : 5, lastLogin: new Date() }, { upsert: true });
       return failure(res, { error: 'Incorrect password, please try again.' });
     }
 
@@ -113,7 +113,7 @@ export function login(req: Request, res: Response) {
       password
     }, process.env.ENCRYPTION_KEY);
 
-    c.update({ username }, { loginAttempts: 0, lastLogin: new Date() });
+    c.update({ username }, { loginAttempts: 0, lastLogin: new Date() }, { upsert: true });
 
     success(res, {
       message: 'Login successful!',
