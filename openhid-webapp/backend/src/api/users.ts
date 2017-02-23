@@ -68,52 +68,79 @@ export function sanitizeUser({username, email, password}: UserAPI): UserAPI {
  */
 export function login(req: Request, res: Response) {
 
+  let {
+    username,
+    password
+  } = req.body;
+
   // Responses
-  let sanitized = sanitizeUser({ email: 'a@a.aa', ...req.body });
+  let sanitized = sanitizeUser({
+    email: 'a@a.aa',
+    ...req.body
+  });
+
   if (Object.values(sanitized).reduce((prev, cur) => prev || cur, ''))
     return failure(res, {
       error: 'Failed to login',
       ...sanitized
     });
 
-  let {
-    username,
-    password
-  } = req.body;
-
   // Query Database
   database.then(async db => {
+
     let c = db.collection('users');
 
     let users: User[] = await c.find({ username })
       .toArray();
 
     if (users.length < 1)
-      return failure(res, { error: 'Doesn\'t look like that user exists.' });
+      return failure(res, {
+        error: 'Doesn\'t look like that user exists.'
+      });
 
     let [user] = users;
     let {
       password: dbPassword,
-      salt,
       loginAttempts,
       lastLogin
     } = user;
 
-    if (loginAttempts > MAX_LOGIN_ATTEMPTS)
-      if ((new Date().getMilliseconds() - new Date(lastLogin).getMilliseconds()) > 5 * 60 * 1000)
-        return failure(res, { error: 'Please try logging after 5 minutes.' });
+    if (loginAttempts >= MAX_LOGIN_ATTEMPTS)
+      if ((new Date().getTime() - new Date(lastLogin).getTime()) < 5 * 60 * 1000)
+        return failure(res, {
+          error: 'Please try logging in after 5 minutes.'
+        });
 
-    if (!(await bcrypt.compare(password, salt))) {
-      c.update({ username }, { loginAttempts: loginAttempts < 5 ? '$inc' : 5, lastLogin: new Date() }, { upsert: true });
+    if (!(await bcrypt.compare(password, dbPassword, ))) {
+      await c.update({ username },
+        {
+          $inc: {
+            loginAttempts: loginAttempts < 5 ? 1 : 0
+          },
+          $set: {
+            lastLogin: new Date()
+          }
+        },
+        {
+          upsert: true
+        })
+        .catch(err => console.error(err));
+
       return failure(res, { error: 'Incorrect password, please try again.' });
     }
 
     let token = jwt.sign({
       username,
       password
-    }, process.env.ENCRYPTION_KEY);
+    }, 'TeStSeCrEat');//process.env.ENCRYPTION_KEY);
 
-    c.update({ username }, { loginAttempts: 0, lastLogin: new Date() }, { upsert: true });
+    await c.update({ username }, {
+      $set: {
+        loginAttempts: 0,
+        lastLogin: new Date()
+      }
+    }, { upsert: true })
+      .catch(err => console.error(err));
 
     success(res, {
       message: 'Login successful!',
@@ -148,13 +175,15 @@ export function register(req: Request, res: Response) {
       .toArray();
     let [user] = users;
 
+    console.log(user);
+
     if (user)
-      return failure(res, { error: user.email ? 'This email already exists.' : 'This username already exists.' });
+      return failure(res, { error: user.email === email ? 'This email already exists.' : 'This username already exists.' });
 
     let token = jwt.sign({
       username,
       password
-    }, process.env.ENCRYPTION_KEY);
+    }, 'TeStSeCrEat');//process.env.ENCRYPTION_KEY);
 
     let salt = await bcrypt.genSalt(SALT_ROUNDS);
     let hashPassword = await bcrypt.hash(password, salt);
@@ -194,9 +223,9 @@ export function users(req: Request, res: Response) {
       .limit(10)
       .toArray();
 
-      success(res, {
-        message: 'Here\'s the list of users!',
-        data: users
-      });
+    success(res, {
+      message: 'Here\'s the list of users!',
+      data: users
+    });
   })
 }

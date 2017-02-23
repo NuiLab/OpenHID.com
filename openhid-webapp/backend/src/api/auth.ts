@@ -20,7 +20,7 @@ export function auth(req: Request, res: Response, next) {
   }
 
   try {
-    decodedToken = jwt.verify(jwtToken, process.env.ENCRYPTION_KEY);
+    decodedToken = jwt.verify(jwtToken, 'TeStSeCrEat');//process.env.ENCRYPTION_KEY);
   } catch (e) {
     return res.status(400).json({
       message: 'Doesn\'t look like you\'re logged in, please login first.'
@@ -33,10 +33,10 @@ export function auth(req: Request, res: Response, next) {
   next();
 }
 
-export function editUser() {
-
+export function editUser(req, res) {
+  res.status(400).json({ message: "WIP" });
 }
 
-export function post() {
-
+export function post(req, res) {
+  res.status(400).json({ message: "WIP" });
 }
