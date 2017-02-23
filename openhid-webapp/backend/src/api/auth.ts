@@ -1,11 +1,9 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 
-export function auth(req: Request, res: Response, next) {
+export function auth(req: Request, res: Response, next: NextFunction) {
   var jwtToken,
     decodedToken;
-
-  req['auth'] = {};
 
   if (req.header('Authorization')) {
     jwtToken = req.header('Authorization').replace('Bearer ', '');
@@ -27,8 +25,7 @@ export function auth(req: Request, res: Response, next) {
     });
   }
 
-  req['auth.username'] = decodedToken.username;
-  req['auth.password'] = decodedToken.password;
+  req['auth'] = { ...decodedToken };
 
   next();
 }

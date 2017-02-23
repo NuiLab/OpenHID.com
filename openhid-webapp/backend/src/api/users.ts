@@ -9,7 +9,8 @@ const MAX_LOGIN_ATTEMPTS = 5;
 
 /**
  * User Database Schema
- * Users add/edit publications.
+ * Users can add/edit publications, as
+ * well as share their research profile.
  */
 export type User = {
   email: string,
@@ -18,10 +19,10 @@ export type User = {
   salt: string,
   loginAttempts: number,
   lastLogin: Date,
-  social: {
-    facebook: string,
-    twitter: string,
-    github: string
+  social?: {
+    facebook?: string,
+    twitter?: string,
+    github?: string
   }
   name: string,
   // Admins can edit all publications, members can edit their own.
@@ -30,6 +31,9 @@ export type User = {
   avatar: string,
 }
 
+/**
+ * User API Request Type
+ */
 export type UserAPI = {
   username: string,
   email?: string,
@@ -175,8 +179,6 @@ export function register(req: Request, res: Response) {
       .toArray();
     let [user] = users;
 
-    console.log(user);
-
     if (user)
       return failure(res, { error: user.email === email ? 'This email already exists.' : 'This username already exists.' });
 
@@ -188,7 +190,7 @@ export function register(req: Request, res: Response) {
     let salt = await bcrypt.genSalt(SALT_ROUNDS);
     let hashPassword = await bcrypt.hash(password, salt);
 
-    c.update({}, {
+    c.update({ username }, {
       username,
       email,
       password: hashPassword,
@@ -203,6 +205,38 @@ export function register(req: Request, res: Response) {
     })
   });
 
+}
+
+/**
+ * Password Recovery Endpoint
+ * @TODO - Finish, Captcha, GET endpoint with hash for recovered password, Google Auth
+ */
+export function recoverPassword(req: Request, res: Response) {
+  let { email } = req.body;
+
+  if (!email)
+    failure(res, { error: 'Please provide an email so we can email your account. ' });
+
+  database.then(async db => {
+    let c = db.collection('users');
+
+    let users = c.find({ email }).toArray();
+
+  });
+}
+
+/**
+ * Editing User
+ */
+export function editUser(req, res) {
+  res.status(400).json({ message: "WIP" });
+}
+
+/**
+ * 
+ */
+export function post(req, res) {
+  res.status(400).json({ message: "WIP" });
 }
 
 /**

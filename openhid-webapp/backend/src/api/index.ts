@@ -5,12 +5,6 @@ import { auth, editUser, post } from './auth';
 
 export default function (app: Express) {
 
-  app.post('/api/v1', (req, res) => {
-    res.status(200).json({
-      message: '⚪ OpenHID API v1.0',
-    });
-  });
-
   // User Accounts
   app.post('/api/v1/login', login);
   app.post('/api/v1/register', register);
@@ -23,5 +17,12 @@ export default function (app: Express) {
   app.use('/api/v1/auth', auth);
   app.post('/api/v1/auth/post', post);
   app.post('/api/v1/auth/user', editUser);
+
+  // Default Message
+  app.post('*', (req, res) => {
+    res.status(200).json({
+      message: '⚪ OpenHID API v1.0',
+    });
+  });
 
 };
