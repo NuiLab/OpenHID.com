@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 
+const { encryptionKey } = require('../../auth.json');
+
 export function auth(req: Request, res: Response, next: NextFunction) {
   var jwtToken,
     decodedToken;
@@ -18,7 +20,7 @@ export function auth(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    decodedToken = jwt.verify(jwtToken, 'TeStSeCrEat');//process.env.ENCRYPTION_KEY);
+    decodedToken = jwt.verify(jwtToken, encryptionKey);
   } catch (e) {
     return res.status(400).json({
       message: 'Doesn\'t look like you\'re logged in, please login first.'

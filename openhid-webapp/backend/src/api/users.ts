@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
-import { success, failure } from './utils';
+import { randomBytes } from 'crypto';
+import { success, failure, email as transportEmail } from './utils';
 import { database } from '../db';
 
 const SALT_ROUNDS = 10;
 const MAX_LOGIN_ATTEMPTS = 5;
+const { encryptionKey } = require('../../auth.json');
 
 /**
  * User Database Schema
@@ -29,6 +31,10 @@ export type User = {
   permissions: 'owner' | 'employee' | 'student',
   description: string,
   avatar: string,
+  reset: {
+    token: string,
+    time: Date
+  }
 }
 
 /**
@@ -68,6 +74,19 @@ export function sanitizeUser({username, email, password}: UserAPI): UserAPI {
 }
 
 /**
+ * Middleware to sanitize User Requests
+ */
+export function sanitizeUserCheck(req: Request, res: Response, body: Object = {}, error = 'Failure...') {
+  // Responses
+  let sanitized = sanitizeUser({ ...req.body, ...body });
+  if (Object.values(sanitized).reduce((prev, cur) => prev || cur, ''))
+    return failure(res, {
+      error,
+      ...sanitized
+    });
+}
+
+/**
  * Login Endpoint
  */
 export function login(req: Request, res: Response) {
@@ -78,16 +97,7 @@ export function login(req: Request, res: Response) {
   } = req.body;
 
   // Responses
-  let sanitized = sanitizeUser({
-    email: 'a@a.aa',
-    ...req.body
-  });
-
-  if (Object.values(sanitized).reduce((prev, cur) => prev || cur, ''))
-    return failure(res, {
-      error: 'Failed to login',
-      ...sanitized
-    });
+  sanitizeUserCheck(req, res, { email: 'a@a.aa'});
 
   // Query Database
   database.then(async db => {
@@ -136,7 +146,7 @@ export function login(req: Request, res: Response) {
     let token = jwt.sign({
       username,
       password
-    }, 'TeStSeCrEat');//process.env.ENCRYPTION_KEY);
+    }, encryptionKey);
 
     await c.update({ username }, {
       $set: {
@@ -157,13 +167,9 @@ export function login(req: Request, res: Response) {
  * Register Endpoint
  */
 export function register(req: Request, res: Response) {
+
   // Responses
-  let sanitized = sanitizeUser(req.body);
-  if (Object.values(sanitized).reduce((prev, cur) => prev || cur, ''))
-    return failure(res, {
-      error: 'Failed to register...',
-      ...sanitized
-    });
+  sanitizeUserCheck(req, res);
 
   let {
     username,
@@ -185,7 +191,7 @@ export function register(req: Request, res: Response) {
     let token = jwt.sign({
       username,
       password
-    }, 'TeStSeCrEat');//process.env.ENCRYPTION_KEY);
+    }, encryptionKey);
 
     let salt = await bcrypt.genSalt(SALT_ROUNDS);
     let hashPassword = await bcrypt.hash(password, salt);
@@ -208,32 +214,137 @@ export function register(req: Request, res: Response) {
 }
 
 /**
- * Password Recovery Endpoint
- * @TODO - Finish, Captcha, GET endpoint with hash for recovered password, Google Auth
+ * Password Forgotten Endpoint
  */
-export function recoverPassword(req: Request, res: Response) {
+export function forgotPassword(req: Request, res: Response) {
   let { email } = req.body;
 
+  let fail = (error = 'Couldn\'t find that email, try another please.') =>
+    failure(res, { error });
+
   if (!email)
-    failure(res, { error: 'Please provide an email so we can email your account. ' });
+    fail();
+
+  database.then(async db => {
+
+    let c = db.collection('users');
+
+    let users = await c.find({ email })
+      .toArray()
+      .catch(err => fail());
+
+    let user: User = users[0];
+
+    if (user) {
+
+      if (user.reset && (new Date().getTime() - new Date(user.reset.time).getTime()) < 5 * 60 * 1000) {
+        fail('You still have a pending email');
+      }
+
+     let token = randomBytes(64).toString('hex');;
+      
+      await c.update({ email }, {
+        $set: {
+          reset: {
+            token: await bcrypt.hash(token, SALT_ROUNDS),
+            time: new Date()
+          }
+        }
+      }, {
+          upsert: true
+        })
+        .catch(err => fail());
+
+      transportEmail({
+        name: user.name,
+        email: user.email,
+        subject: 'Password Recovery for OpenHID.com',
+        text: `Please visit the following link to recover your account:\n https://openhid.com/recover?email=${email}&token=${token}`,
+        html: `Please visit the following link to recover your account:\n https://openhid.com/recover?email=${email}&token=${token}`
+      });
+
+      success(res, {
+        message: 'You should recieve an email asking to reset your password, you have 5 minutes to respond.'
+      });
+
+    }
+    else {
+      fail();
+    }
+  });
+}
+
+/**
+ * Password Recovery Endpoint
+ */
+export function recoverPassword(req: Request, res: Response) {
+
+  // Responses
+  sanitizeUserCheck(req, res, { username: 'aaaaa' });
+
+  let {
+    email,
+    token,
+    password
+  } = req.body;
+
+  let fail = (error = 'Couldn\'t find that token, try another please.') =>
+    failure(res, { error, token: error });
+
+  if (!token)
+    fail();
+
 
   database.then(async db => {
     let c = db.collection('users');
 
-    let users = c.find({ email }).toArray();
+    let users = await c.find({
+      email
+    })
+      .toArray()
+      .catch(err => fail());
+
+    let user: User = users[0];
+
+    if (user) {
+
+      if (await bcrypt.compare(token, user.reset.token))
+        await c.update({ user }, {
+          $set: {
+            password: await bcrypt.hash(password, SALT_ROUNDS)
+          },
+          $unset: {
+            reset: ''
+          }
+        }, { upsert: true })
+          .catch(() => fail())
+          .then(() => success(res, { message: 'Your password was successfully changed!' }))
+      else
+        await c.update({ user }, {
+          $unset: {
+            reset: ''
+          }
+        }, { upsert: true })
+          .catch(() => fail())
+          .then(() => fail());
+
+    }
+    else {
+      fail();
+    }
 
   });
 }
 
 /**
- * Editing User
+ * Editing a User Account
  */
 export function editUser(req, res) {
   res.status(400).json({ message: "WIP" });
 }
 
 /**
- * 
+ * Posting a publication
  */
 export function post(req, res) {
   res.status(400).json({ message: "WIP" });

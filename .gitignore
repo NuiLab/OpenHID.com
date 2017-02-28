@@ -26,6 +26,7 @@ ts-node
 *.ppk
 *.pub
 db
+auth.json
 
 # Editors
 .vscode

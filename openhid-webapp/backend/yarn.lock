@@ -6,6 +6,10 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-1.0.0.tgz#2c523da191db7d41c06d17de235335c985effe9b"
 
+"@types/bluebird@*":
+  version "3.0.37"
+  resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.0.37.tgz#2e76b394aa9bea40d04241a31c0887a260283388"
+
 "@types/body-parser@0.0.33":
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-0.0.33.tgz#33ca1498fc37e51c5df0c81cae34569e7041e025"
@@ -50,6 +54,28 @@
 "@types/node@*", "@types/node@^7.0.5":
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.5.tgz#96a0f0a618b7b606f1ec547403c00650210bfbb7"
+
+"@types/nodemailer-direct-transport@*":
+  version "1.0.29"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer-direct-transport/-/nodemailer-direct-transport-1.0.29.tgz#0247bb4734f8bbf9398241b16b41022e1303ddf1"
+  dependencies:
+    "@types/nodemailer" "*"
+
+"@types/nodemailer-smtp-transport@*":
+  version "1.0.29"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer-smtp-transport/-/nodemailer-smtp-transport-1.0.29.tgz#46d71e4e23a526bd32ddf449613b58896b1e3164"
+  dependencies:
+    "@types/node" "*"
+    "@types/nodemailer" "*"
+
+"@types/nodemailer@*", "@types/nodemailer@^1.3.32":
+  version "1.3.32"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-1.3.32.tgz#76388aa9389a9290416c98eafd7d24d80efa2333"
+  dependencies:
+    "@types/bluebird" "*"
+    "@types/node" "*"
+    "@types/nodemailer-direct-transport" "*"
+    "@types/nodemailer-smtp-transport" "*"
 
 "@types/react-redux@^4.4.36":
   version "4.4.36"
@@ -1264,6 +1290,10 @@ node-pre-gyp@0.6.32, node-pre-gyp@^0.6.29:
     semver "~5.3.0"
     tar "~2.2.1"
     tar-pack "~3.3.0"
+
+nodemailer@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-3.1.4.tgz#0c969a7fb7990a1b1c92a9d9f5b0b84c41e4c1f8"
 
 nodemon@^1.11.0:
   version "1.11.0"
