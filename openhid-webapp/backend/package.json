@@ -11,8 +11,7 @@
   },
   "scripts": {
     "develop": "set DEBUG=express:* & set NODE_ENV=development & ts-node -F -D src/main.ts",
-    "production": "set DEBUG=false & set NODE_ENV=production & ts-node -F -D src/main.ts &",
-    "start": "nodemon"
+    "start": "set DEBUG=false & set NODE_ENV=production & ts-node -F -D src/main.ts &"
   },
   "keywords": [],
   "private": true,
@@ -29,20 +28,19 @@
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "bcrypt": "^1.0.2",
-    "body-parser": "^1.16.1",
+    "body-parser": "^1.17.0",
     "compression": "^1.6.2",
-    "express": "^4.14.1",
+    "express": "^4.15.0",
     "jsonwebtoken": "^7.3.0",
     "mongodb": "^2.2.24",
     "nodemailer": "^3.1.4",
-    "nodemon": "^1.11.0",
+    "rapscallion": "^2.1.0",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-redux": "^5.0.2",
-    "react-router": "^4.0.0-beta.5",
+    "react-redux": "^5.0.3",
+    "react-router": "^4.0.0-beta.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "ts-node": "^2.1.0",
-    "typescript": "^2.1.6"
+    "typescript": "^2.2.1"
   }
 }

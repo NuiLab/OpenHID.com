@@ -11,10 +11,10 @@ var config = {
   context: path.join(__dirname, 'src'),
   entry: {
     main: 'main',
-    vendor: ['react', 'react-dom', 'react-router']
+    vendor: ['react', 'react-dom', 'react-router', 'react-router-dom']
   },
   output: {
-    path: path.join(__dirname, 'assets'),
+    path: path.join(__dirname, 'assets', 'build'),
     filename: '[name].min.js'
   },
   resolve: {
@@ -22,7 +22,8 @@ var config = {
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
@@ -36,21 +37,27 @@ var config = {
         test: /\.s?css$/,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
-          loader: [{
+          loader: [
+            {
               loader: 'css-loader'
             },
             {
               loader: 'postcss-loader',
               options: {
                 ident: 'postcss',
-                plugins: () => [
-                  precss,
-                  autoprefixer
-                ]
+                plugins: () => [precss, autoprefixer]
               }
             }
           ]
         })
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
       }
     ]
   },

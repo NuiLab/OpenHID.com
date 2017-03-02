@@ -13,12 +13,13 @@ export function success(res: Response, msg: Object) {
 
 // Emails
 
-/*const { auth } = require('../../auth.json');
+const { auth } = require('../../auth.json');
+
 const transporter = createTransport({
-  service: 'gmail',
+  service: 'hotmail',
   auth
 });
-*/
+
 export function email({name, email, subject, text, html}) {
   let mailOptions = {
     from: '"⚪ OpenHID" <noreply@openhid.com>', // sender address
@@ -29,5 +30,5 @@ export function email({name, email, subject, text, html}) {
   };
 
   // send mail with defined transport object
-  return; //transporter.sendMail(mailOptions);
+  return transporter.sendMail(mailOptions);
 }

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
+import { render, template } from 'rapscallion';
 import { StaticRouter } from 'react-router';
 import App from '../../frontend/src/app';
 import { NotFound } from '../../frontend/src/views';
@@ -11,14 +12,14 @@ import { database } from './db';
  */
 export function renderPage(req: Request, res: Response) {
 
-  // This context object contains the results of the render
+  // React Router
   const context: any = {};
-
-  let markup = renderToString(
-     <StaticRouter location={req.url} context={context}>
+  const state = {};
+  const app =
+    <StaticRouter location={req.url} context={context}>
       {App}
     </StaticRouter>
-  );
+
 
   // context.url will contain the URL to redirect to if a <Redirect> was used
   if (context.url) {
@@ -27,14 +28,9 @@ export function renderPage(req: Request, res: Response) {
     });
     res.end();
   } else {
-    let state = {};
-    res.write(page(markup, state));
-    res.end();
-  }
-}
+    const componentRenderer = render(app);
 
-function page(markup: string, state: Object) {
-  return `<!--
+    const responseRenderer = template`<!--
 
         .:+syyssss+:.
     ./yyoo.  ....-:ohy/.   
@@ -78,20 +74,26 @@ oh- .. ..  . ..-o-. . . . ./ho
   <!--Icons/Mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
   <link rel="shortcut icon" href="/assets/brand/icon.ico"/>
-  <link rel="stylesheet" href="/assets/main.min.css"/>
+  <link rel="stylesheet" href="/assets/build/main.min.css"/>
 </head>
 
 <body>
   <div id="app">
-    ${markup}
+    ${componentRenderer}
   </div>
 
   <!--Load App-->
-  <script>window['__INITIAL_STATE__']=${JSON.stringify(state)}</script>
-  <script src="/assets/vendor.min.js"></script>
-  <script src="/assets/main.min.js"></script>
+  <script>
+    window['__INITIAL_STATE__']=${JSON.stringify(state)};
+
+  </script>
+  <script src="/assets/build/vendor.min.js"></script>
+  <script src="/assets/build/main.min.js"></script>
 </body>
 
 </html>
 `;
+    responseRenderer.toStream().pipe(res);
+  }
 }
+
