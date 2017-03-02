@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import fetch from 'unfetch';
 
 export function createReducer(initialState, reducerMap) {
   return (state = initialState, action) => {
