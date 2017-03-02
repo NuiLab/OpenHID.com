@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import * as React from 'react';
-import { renderToString } from 'react-dom/server';
+import * as serialize from 'serialize-javascript';
 import { render, template } from 'rapscallion';
 import { StaticRouter } from 'react-router';
 import App from '../../frontend/src/app';
@@ -28,8 +28,6 @@ export function renderPage(req: Request, res: Response) {
     });
     res.end();
   } else {
-    const componentRenderer = render(app);
-
     const responseRenderer = template`<!--
 
         .:+syyssss+:.
@@ -79,12 +77,12 @@ oh- .. ..  . ..-o-. . . . ./ho
 
 <body>
   <div id="app">
-    ${componentRenderer}
+    ${app}
   </div>
 
   <!--Load App-->
   <script>
-    window['__INITIAL_STATE__']=${JSON.stringify(state)};
+    window._initialState=${serialize(state)};
 
   </script>
   <script src="/assets/build/vendor.min.js"></script>
