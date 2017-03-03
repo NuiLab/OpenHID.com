@@ -16,19 +16,22 @@ export function success(res: Response, msg: Object) {
 const { emailAuth: auth } = require('../../auth.json');
 
 const transporter = createTransport({
-  service: 'Outlook',
+  host: 'smtp-mail.outlook.com',
+  port: 587,
+  secure: true,
   auth
 });
 
 export function email({name, email, subject, text, html}) {
   let mailOptions = {
     from: '"⚪ OpenHID" <noreply@openhid.com>', // sender address
-    to: `"${name}" <${email}>`, // list of receivers
+    to: email, // list of receivers
     subject, // Subject line
     text, // plain text body
     html // html body
   };
 
   // send mail with defined transport object
-  return transporter.sendMail(mailOptions);
+  return transporter.sendMail(mailOptions)
+    .catch(err => console.error(err));
 }

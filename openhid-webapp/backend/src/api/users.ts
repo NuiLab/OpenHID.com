@@ -97,7 +97,7 @@ export function login(req: Request, res: Response) {
   } = req.body;
 
   // Responses
-  sanitizeUserCheck(req, res, { email: 'a@a.aa'});
+  sanitizeUserCheck(req, res, { email: 'a@a.aa' });
 
   // Query Database
   database.then(async db => {
@@ -237,12 +237,12 @@ export function forgotPassword(req: Request, res: Response) {
 
     if (user) {
 
-      if (user.reset && (new Date().getTime() - new Date(user.reset.time).getTime()) < 5 * 60 * 1000) {
-        fail('You still have a pending email');
-      }
+      if (user.reset && (new Date().getTime() - new Date(user.reset.time).getTime()) < 5 * 60 * 1000)
+        return fail('You still have a pending email.');
 
-     let token = randomBytes(64).toString('hex');;
-      
+
+      let token = randomBytes(64).toString('hex');;
+
       await c.update({ email }, {
         $set: {
           reset: {
@@ -264,7 +264,7 @@ export function forgotPassword(req: Request, res: Response) {
       });
 
       success(res, {
-        message: 'You should recieve an email asking to reset your password, you have 5 minutes to respond.'
+        message: 'You should receive an email asking to reset your password, you have 5 minutes to respond.'
       });
 
     }

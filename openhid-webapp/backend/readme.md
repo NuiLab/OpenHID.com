@@ -21,7 +21,7 @@ type AuthConfig = {
 }
 ```
 
-## User Authentication
+### User Authentication
 
 ```ts
 type UserAPI = {
@@ -37,12 +37,12 @@ type UserAPI = {
 - `api/v1/forgot` - Request an email to recover a forgot password.
 - `api/v1/recover` - Create a new password based on a auth token.
 
-## Publications and Users
+### Publications and Users
 
 - `api/v1/auth/user` - Edit your or several user accounts (depending on permissions).
 - `api/v1/auth/post` - Edit or Post a publication(s) (depending on permissions).
 
-## Open Queries
+### Open Queries
 
 - `api/v1/post` - Query for different posts.
 - `api/v1/user` - Query for different users.

@@ -1,5 +1,0 @@
-{
-  "watch": ["src/**/*.ts"],
-  "ignore": ["src/**/*.spec.ts"],
-  "exec": "set DEBUG=false & set NODE_ENV=production & ts-node -F -D src/main.ts &"
-}
