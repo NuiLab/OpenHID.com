@@ -13,10 +13,10 @@ export function success(res: Response, msg: Object) {
 
 // Emails
 
-const { auth } = require('../../auth.json');
+const { emailAuth: auth } = require('../../auth.json');
 
 const transporter = createTransport({
-  service: 'hotmail',
+  service: 'Outlook',
   auth
 });
 

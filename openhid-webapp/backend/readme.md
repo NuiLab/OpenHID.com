@@ -2,6 +2,25 @@
 
 OpenHID is powered by a simple REST API that handles authentication, user accounts, and publications.
 
+## Installation
+
+You will need a `auth.json` file at the root of the backend that conforms to the following schema:
+
+```ts
+type AuthConfig = {
+
+  // JSON Web Token Secret
+  encryptionKey: string,
+
+  // Email Credentials
+  emailAuth: {
+    user: string,
+    pass: string
+  }
+
+}
+```
+
 ## User Authentication
 
 ```ts
@@ -25,5 +44,5 @@ type UserAPI = {
 
 ## Open Queries
 
-- `api/v1/post` - Query of different posts.
+- `api/v1/post` - Query for different posts.
 - `api/v1/user` - Query for different users.
