@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "set NODE_ENV=production & webpack",
-    "develop": "webpack-dev-server"
+    "develop": "set NODE_ENV=development & webpack -w"
   },
   "keywords": [
     "systemjs",

@@ -11,12 +11,12 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
-    color: #fff;
+    color: #222;
     z-index: -2;
 }
 
 body {
-    background-color: #21252b;
+    background-color: #fafafa;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -36,13 +36,13 @@ a {
     outline: 0;
     &:link,
     &:visited {
-        color: #fff;
+        color: #222;
     }
     &:hover {
-        color: #ddd;
+        color: #4c8aad;
     }
     &:active {
-        color: #ccc;
+        color: #4c6a9d;
     }
 }
 
@@ -54,7 +54,7 @@ h5,
 h6 {
     font-style: normal;
     font-size: 3em;
-    font-weight: 100;
+    font-weight: 500;
 }
 
 h2 {
@@ -62,11 +62,11 @@ h2 {
 }
 
 h3 {
-    font-size: 1.5em;
+    font-size: 1.6666em;
 }
 
 h4 {
-    font-size: 1.25em;
+    font-size: 1.5em;
 }
 
 h5 {
@@ -81,13 +81,34 @@ img {
     max-width: 100%;
 }
 
+table, span {
+    max-width: 100%;
+}
+
+em {
+    font-style: italic;
+    font-weight: 100;
+}
+
 p {
     line-height: 2.5em;
+    a {
+        &:link,
+        &:visited {
+            color: #639dcc;
+        }
+        &:hover {
+            color: #abcde8;
+        }
+        &:active {
+            color: #4c8abd;
+        }
+    }
 }
 
 pre {
     text-shadow: 0 0px 0px rgba(0, 0, 0, 0);
-    background-color: #282c34;
+    background-color: rgba(0, 0, 0, 0.23);
     padding: 8px;
     overflow: auto;
     border-radius: 8px;
@@ -95,48 +116,50 @@ pre {
 }
 
 code {
-    font-family: 'Fira Mono', monospace;
+    font-family: 'Source Code Pro';
     line-height: 1.5em;
+    font-weight: 400;
 }
 
-
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.5);
-    border-radius: 20px;
+    border-radius: 6px;
 }
 
 ::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0);
-    border-radius: 20px;
+    border-radius: 6px;
 }
 
+
 /* Article Specific CSS */
+
 article {
     p {
-    line-height: 2.5em;
+        line-height: 2.5em;
     }
-
     img {
         display: block;
         margin: auto;
     }
     blockquote {
         border-left-width: 10px;
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, 0.151);
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
         padding: 15px 20px;
         margin: 0 0 1.1em;
-        border-left: 5px solid rgba(0, 0, 0, 0.075);
+        border-left: 5px solid rgba(54, 140, 202, 0.52);
+        ;
     }
     strong {
         font-weight: 500;
     }
-    &> p {
+    &>p {
         padding: 1em 0;
     }
     h1,
@@ -158,10 +181,68 @@ article {
         padding-left: 2em;
     }
     ol {
-        list-style: circle;
+        list-style: decimal;
         padding-left: 2em;
+        >ol {
+            list-style: lower-alpha;
+            >ol {
+                list-style: lower-roman;
+            }
+        }
     }
-    ul, ol {
+    ul,
+    ol {
         line-height: 1.5em;
     }
+    table {
+        line-height: 2em;
+        margin: 1em;
+        th {
+            padding: .5em .7em;
+            font-weight: 500;
+        }
+        tr {
+            &:nth-child(2n) {
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+            td {
+                padding: .4em .7em;
+            }
+        }
+    }
+}
+
+
+/* Core Styles */
+
+.btn {
+    background-image: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.19));
+    background-repeat: no-repeat;
+    box-shadow: 0 2px 0 rgba(255, 255, 255, 0.0) inset;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-out, background-position 0.3s ease-out;
+    cursor: pointer;
+    border-radius: 2em;
+    background-color: #3676d1;
+    margin: .5em .25em;
+    padding: .75em 1.5em;
+    &:hover {
+        background-position: 0 2em;
+    }
+    &:active {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) inset;
+    }
+}
+
+.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
 }

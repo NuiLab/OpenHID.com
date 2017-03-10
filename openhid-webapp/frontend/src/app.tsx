@@ -4,15 +4,15 @@ import { Navbar } from './components';
 import { Home, Publications, About, User, Publication, NotFound } from './views';
 
 const App = (
-  <div>
+  <div style={{ width: '100vw', height: '100vh' }}>
     <Navbar />
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/publications" component={Publications} />
+      <Route exact path="/404" component={NotFound} />
       <Route exact path="/about" component={About} />
+      <Route exact path="/publications" component={Publications} />
+      <Route path="/publications/:permalink" component={Publication} />
       <Route path="/:user" component={User} />
-      <Route path="/:user/:permalink" component={Publication} />
-      <Route component={NotFound} />
     </Switch>
   </div>
 );
