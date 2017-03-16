@@ -19,6 +19,7 @@ export function renderPage(req: Request, res: Response) {
       {App}
     </StaticRouter>
 
+  const componentRenderer = render(app);
 
   // context.url will contain the URL to redirect to if a <Redirect> was used
   if (context.url) {
@@ -76,7 +77,7 @@ oh- .. ..  . ..-o-. . . . ./ho
   <link rel="manifest" href="/assets/manifest.webmanifest">
   <!--Safari-->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="OpenHID">
   <link rel="apple-touch-icon-precomposed" href="assets/brand/icon/512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/icon/180.png">
@@ -100,13 +101,13 @@ oh- .. ..  . ..-o-. . . . ./ho
 
 <body>
   <div id="app">
-    ${app}
+    ${() => componentRenderer}
   </div>
 
   <!--Load App-->
   <script>
     window._initialState=${serialize(state)};
-
+    document.querySelector("#app").setAttribute("data-react-checksum", "${() => componentRenderer.checksum()}")
   </script>
   <script src="/assets/build/vendor.min.js"></script>
   <script src="/assets/build/main.min.js"></script>

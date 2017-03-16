@@ -9,14 +9,14 @@
     "url": "https://gitlab.com/openhid/openhid.com.git"
   },
   "scripts": {
-    "start": "npm run setup-backend && npm run start-backend",
-    "setup-backend": "cd backend & npm i",
-    "start-backend": "cd backend & npm start"
+    "start": "lerna run start",
+    "postinstall": "lerna bootstrap --npm-client=yarn"
   },
   "keywords": [
-    "systemjs",
-    "typescript",
-    "postcss"
+
   ],
-  "private": true
+  "private": true,
+  "dependencies": {
+    "lerna": "^2.0.0-beta.38"
+  }
 }

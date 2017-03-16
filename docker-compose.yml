@@ -16,7 +16,7 @@ services:
     image: mongo
     restart: unless-stopped
   openhid:
-    build: ./openhid-webapp
+    build: ./
     volumes:
       - .:/home/openhid/db
     ports: 

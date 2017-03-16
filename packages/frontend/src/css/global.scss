@@ -1,3 +1,4 @@
+
 /**
 * Base Styles
 */
@@ -34,15 +35,16 @@ a {
     text-decoration: none;
     cursor: pointer;
     outline: 0;
+    transition: color 0.3s ease-out;
     &:link,
     &:visited {
-        color: #222;
+        color: #fff;
     }
     &:hover {
-        color: #4c8aad;
+        color: rgb(83, 197, 251);
     }
     &:active {
-        color: #4c6a9d;
+        color: rgb(73, 187, 241);
     }
 }
 
@@ -81,7 +83,8 @@ img {
     max-width: 100%;
 }
 
-table, span {
+table,
+span {
     max-width: 100%;
 }
 

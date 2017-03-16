@@ -11,8 +11,8 @@ const App = (
       <Route exact path="/404" component={NotFound} />
       <Route exact path="/about" component={About} />
       <Route exact path="/publications" component={Publications} />
-      <Route path="/publications/:permalink" component={Publication} />
-      <Route path="/:user" component={User} />
+      <Route exact path="/publications/:permalink" component={Publication} />
+      <Route exact path="/:user" component={User} />
     </Switch>
   </div>
 );
