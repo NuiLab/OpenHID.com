@@ -11,7 +11,17 @@ var config = {
   context: path.join(__dirname, 'src'),
   entry: {
     main: 'main',
-    vendor: ['react', 'react-dom', 'react-router', 'react-router-dom']
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router',
+      'react-router-dom',
+      'isomorphic-fetch',
+      'redux',
+      'react-redux',
+      'redux-thunk',
+      'glamor'
+    ]
   },
   output: {
     path: path.join(__dirname, 'assets', 'build'),
