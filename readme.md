@@ -1,3 +1,5 @@
+![Concept Screenshot](http://orig00.deviantart.net/85a7/f/2017/083/e/0/home_desktop_concept_by_alaingalvan-db3fp2u.png)
+
 # OpenHID Web Stack
 
 The OpenHID stack that powers our website and services.
